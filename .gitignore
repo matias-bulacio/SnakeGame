@@ -1,1 +1,3 @@
 Libraries/raylib-6.0_*
+compile_commands.json
+.clang-format

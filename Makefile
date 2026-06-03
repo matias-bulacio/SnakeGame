@@ -2,9 +2,9 @@ LINUX_CC=gcc
 WINDOWS_CC=x86_64-w64-mingw32-gcc
 WEB_CC=/usr/lib/emscripten/emcc
 CFLAGS=-O2 -Wall -Wextra -MMD -MP
-CFLAGS_LINUX=
-CFLAGS_WINDOWS=
-CFLAGS_WEB=--memory-init-file 0 -s USE_GLFW=3 --shell-file=Libraries/Static/Web/minshell.html -s MAX_WEBGL_VERSION=2
+CFLAGS_LINUX= -DPLATFORM_LINUX
+CFLAGS_WINDOWS= -DPLATFORM_WINDOWS
+CFLAGS_WEB= -DPLATFORM_WEB --memory-init-file 0 -s USE_GLFW=3 --shell-file=Libraries/Static/Web/minshell.html -s MAX_WEBGL_VERSION=2
 
 SOURCES=$(wildcard Source/*.c Source/Implementation/*.c)
 OBJECTS_LINUX=$(patsubst %.c,Build/Linux/%.o,$(SOURCES))
@@ -18,7 +18,7 @@ COMMON_INCLUDE=-ISource/Headers/
 
 LINUX_INCLUDE=-ILibraries/Include/Linux/
 WINDOWS_INCLUDE=-ILibraries/Include/Windows/
-WEBASSEMBLY_INCLUDE=-ILibraries/Include/Web/
+WEB_INCLUDE=-ILibraries/Include/Web/
 
 STATIC_LINUX_LIBS = -lraylib
 DYNAMIC_LINUX_LIBS= -lm -lGL -lpthread -ldl -lrt -lX11
@@ -67,3 +67,4 @@ clean:
 	rm -rf Build Binaries
 	mkdir -p Build/Linux Build/Web Build/Windows
 	mkdir -p Binaries/Linux Binaries/Web Binaries/Windows
+	touch Build/.gitkeep Binaries/.gitkeep

@@ -1,3 +1,37 @@
+#include <raylib.h>
+#include <stdbool.h>
+
+#ifdef PLATFORM_WEB
+#include <emscripten/emscripten.h>
+#endif
+
+void setup(void) {
+    InitWindow(800, 600, "SnakeGame");
+
+    // InitAudioDevice();
+
+    // Load resources
+}
+
+void loop(void) {
+    ClearBackground(RAYWHITE);
+    DrawRectangle(200, 100, 400, 400, RED);
+}
+
+void final(void) { CloseWindow(); }
+
 int main() {
-	return 69;
+    setup();
+#ifdef PLATFORM_WEB
+    emscripten_set_main_loop(loop, 60, true);
+#else
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+        loop();
+        EndDrawing();
+    }
+#endif
+    final();
 }
