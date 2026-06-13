@@ -7,7 +7,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
-int escena = 0;
+int escena = 1;
+bool ejecutar_setup_de_la_escena = true;
 
 void setup(void) {
     InitWindow(800, 600, "TetrisShoot");
@@ -21,10 +22,12 @@ void loop(void) {
     ClearBackground(RAYWHITE);
     switch (escena) {
     case 0:
-        escena = tetris();
+        escena = tetris(ejecutar_setup_de_la_escena);
+		ejecutar_setup_de_la_escena = escena != 0;
         break;
     case 1:
-        escena = shooter();
+        escena = shooter(ejecutar_setup_de_la_escena);
+		ejecutar_setup_de_la_escena = escena != 1;
         break;
     }
 }

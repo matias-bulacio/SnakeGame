@@ -1,3 +1,4 @@
 #pragma once
 
-int tetris(void);
+#include <stdbool.h>
+int tetris(bool setup);

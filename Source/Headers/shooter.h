@@ -1,3 +1,4 @@
 #pragma once
 
-int shooter();
+#include <stdbool.h>
+int shooter(bool setup);
